@@ -3,6 +3,8 @@ Currently supports Dense Layers, if you want to implement any new nonexisting la
 This is soley a learning project that I made out of ethusiaism, so don't expect much. 
 It works fine according to my experimentations, so good luck trying it out.
 
+LAYERS
+
 Layer:
 Description: Base class for creating neural network layers with trainable parameters.
 Methods:
