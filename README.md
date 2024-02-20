@@ -69,7 +69,7 @@ __init__(fraction, input_layer, Trainable): Initializes the Dropout layer with a
 __call__(x, params): Applies dropout to the inputs.
 display(): Displays information about the Dropout layer.
 
-LOSS
+# **LOSS**
 
 Loss:
 Description: Base class for defining various loss functions used in training neural networks.
@@ -112,7 +112,7 @@ Description: Subclass of Loss representing the Sparse Categorical Crossentropy l
 Methods:
 __call__(y_true, y_pred): Calculates the Sparse Categorical Crossentropy loss between y_true and y_pred.
 
-LOSSHANDLER
+# **LOSSHANDLER**
 
 LossHandler:
 Description: A class to handle loss calculation and weighted loss calculation for a given model.
@@ -129,7 +129,7 @@ y_true: True outputs.
 x: Inputs.
 Note: If an unrecognized loss object is encountered, a message is printed, and that loss is ignored.
 
-MODEL
+# **MODEL**
 
 HomeMadeModel:
 Description: A custom-built neural network model class with configurable layers and training methods.
@@ -149,7 +149,7 @@ train(train_data, epochs, lr, batch_size, valid_data, train_steps, test_steps, s
 __call__(x, params): Executes the model on input x with the specified parameters.
 display(): Displays information about the model's input shape and each layer's configuration.
 
-OPTIMIZER
+# **OPTIMIZER**
 
 Optimizer:
 
@@ -170,7 +170,7 @@ Methods:
 __init__(lr): Initializes the Adam optimizer with the given learning rate.
 Inherits update and set_params methods from the Optimizer class.
 
-TRAINER
+# **TRAINER**
 
 Trainer:
 Description: A class for training a model using a specified optimizer and loss handler.
