@@ -128,3 +128,23 @@ params: Parameters of the model.
 y_true: True outputs.
 x: Inputs.
 Note: If an unrecognized loss object is encountered, a message is printed, and that loss is ignored.
+
+MODEL
+
+HomeMadeModel:
+Description: A custom-built neural network model class with configurable layers and training methods.
+Attributes:
+input_shape: Shape of the input data that is fed into the network.
+structure (list): List of dictionaries, each specifying the type of layer, activation, and dropout.
+Model (list): List of layer objects comprising the model.
+params: Parameters of the model.
+losshandler: LossHandler object for handling loss calculation.
+optimizer: Optimizer object for updating model parameters.
+trainer: Trainer object for training the model.
+Methods:
+__init__(input_shape, structure): Initializes the model with the given input shape and structure.
+init_parameters(): Initializes the network parameters based on the specified structure.
+compile(optimizer, losses, weights, metrics): Compiles the model with the specified optimizer, losses, weights, and metrics.
+train(train_data, epochs, lr, batch_size, valid_data, train_steps, test_steps, steps): Trains the model on the given training data for the specified number of epochs.
+__call__(x, params): Executes the model on input x with the specified parameters.
+display(): Displays information about the model's input shape and each layer's configuration.
