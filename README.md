@@ -187,3 +187,5 @@ Methods:
 __init__(optimizer, losshandler, metrics, params): Initializes the Trainer with the given optimizer, loss handler, metrics, and model parameters.
 __call__(Model, train_data, epochs, lr, batch_size, valid_data=None, train_steps=None, test_steps=None, steps=None): Trains the model for the specified number of epochs using the given data.
 Train(x, y): Performs training on a single batch of data, updating the model's parameters and tracking the loss.
+
+*Disclaimer : Entire README.md description of the project is generated using chatGPT*
