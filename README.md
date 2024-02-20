@@ -169,3 +169,21 @@ Inherits lr and optimizer from the Optimizer class.
 Methods:
 __init__(lr): Initializes the Adam optimizer with the given learning rate.
 Inherits update and set_params methods from the Optimizer class.
+
+TRAINER
+
+Trainer:
+Description: A class for training a model using a specified optimizer and loss handler.
+Attributes:
+optimizer: An optimizer object used to update the model parameters.
+losshandler: A loss handler object used to calculate the loss for the model.
+metrics: Metrics to evaluate the model's performance during training.
+params: The model's parameters.
+epoch_loss: Cumulative loss for the current epoch.
+epoch: Current epoch number.
+epoch_progress_bar: Progress bar for tracking the training progress within an epoch.
+num_batches: Number of batches processed in the current epoch.
+Methods:
+__init__(optimizer, losshandler, metrics, params): Initializes the Trainer with the given optimizer, loss handler, metrics, and model parameters.
+__call__(Model, train_data, epochs, lr, batch_size, valid_data=None, train_steps=None, test_steps=None, steps=None): Trains the model for the specified number of epochs using the given data.
+Train(x, y): Performs training on a single batch of data, updating the model's parameters and tracking the loss.
