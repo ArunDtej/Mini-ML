@@ -11,56 +11,56 @@ set_trainables(): Adds trainable parameters to the model parameters if the layer
 display(): Displays the type of layer.
 __call__(x, params): Raises a NotImplementedError to be implemented in subclasses.
 
-#InputLayer:
+InputLayer:
 Description: Subclass of Layer representing an input layer that returns its input unchanged.
 Methods:
 __init__(input_layer): Initializes the input layer.
 __call__(x, params): Returns the input unchanged.
 display(): Displays the type of layer.
-Relu:
 
+Relu:
 Description: Subclass of Layer representing a ReLU activation function.
 Methods:
 __init__(input_layer, Trainable): Initializes the ReLU activation function.
 __call__(x, params): Applies the ReLU activation to the inputs.
 display(): Displays the type of activation function.
-Sigmoid:
 
+Sigmoid:
 Description: Subclass of Layer representing a Sigmoid activation function.
 Methods:
 __init__(input_layer, Trainable): Initializes the Sigmoid activation function.
 __call__(x, params): Applies the Sigmoid activation to the inputs.
 display(): Displays the type of activation function.
-Tanh:
 
+Tanh:
 Description: Subclass of Layer representing a Tanh activation function.
 Methods:
 __init__(input_layer, Trainable): Initializes the Tanh activation function.
 __call__(x, params): Applies the Tanh activation to the inputs.
 display(): Displays the type of activation function.
-Softmax:
 
+Softmax:
 Description: Subclass of Layer representing a Softmax activation function.
 Methods:
 __init__(input_layer, Trainable): Initializes the Softmax activation function.
 __call__(x, params): Applies the Softmax activation to the inputs.
 display(): Displays the type of activation function.
-LeakyRelu:
 
+LeakyRelu:
 Description: Subclass of Layer representing a Leaky ReLU activation function.
 Methods:
 __init__(input_layer, alpha, Trainable): Initializes the Leaky ReLU activation function with a given alpha.
 __call__(x, params): Applies the Leaky ReLU activation to the inputs.
 display(): Displays the type of activation function.
-Dense:
 
+Dense:
 Description: Subclass of Layer representing a Dense (fully connected) layer.
 Methods:
 __init__(input_layer, input_shape, output_shape, Trainable): Initializes the Dense layer with weights and biases.
 __call__(x, params): Applies the Dense layer forward pass to the inputs.
 display(): Displays information about the Dense layer.
-Dropout:
 
+Dropout:
 Description: Subclass of Layer representing a Dropout layer.
 Methods:
 __init__(fraction, input_layer, Trainable): Initializes the Dropout layer with a dropout fraction.
