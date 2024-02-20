@@ -111,3 +111,20 @@ Sparse_Categorical_Crossentropy:
 Description: Subclass of Loss representing the Sparse Categorical Crossentropy loss function for multi-class classification with integer labels.
 Methods:
 __call__(y_true, y_pred): Calculates the Sparse Categorical Crossentropy loss between y_true and y_pred.
+
+LOSSHANDLER
+
+LossHandler:
+Description: A class to handle loss calculation and weighted loss calculation for a given model.
+Attributes:
+model: Callable model object for which the loss is being calculated.
+losses (list): Iterable containing loss objects. Each loss should be an instance of the Loss class.
+weights (list): Weights corresponding to the given loss objects. If not provided, weights are set equally.
+Methods:
+__init__(model, losses, weights): Initializes the LossHandler object with the model, losses, and optional weights.
+get_predictions(x): Returns predictions from the model for a given input x.
+__call__(params, y_true, x): Calculates the weighted loss for the given loss objects and inputs.
+params: Parameters of the model.
+y_true: True outputs.
+x: Inputs.
+Note: If an unrecognized loss object is encountered, a message is printed, and that loss is ignored.
