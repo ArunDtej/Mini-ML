@@ -148,3 +148,24 @@ compile(optimizer, losses, weights, metrics): Compiles the model with the specif
 train(train_data, epochs, lr, batch_size, valid_data, train_steps, test_steps, steps): Trains the model on the given training data for the specified number of epochs.
 __call__(x, params): Executes the model on input x with the specified parameters.
 display(): Displays information about the model's input shape and each layer's configuration.
+
+OPTIMIZER
+
+Optimizer:
+
+Description: A generic optimizer class for updating model parameters using various optimization algorithms.
+Attributes:
+lr: Learning rate for the optimizer.
+optimizer: Optimizer object from the Optax library.
+Methods:
+__init__(lr, optimizer): Initializes the optimizer with the given learning rate and optimizer object.
+update(y_true, x, loss, params): Updates the model parameters based on the loss function and gradients.
+set_params(params): Sets the model parameters and initializes the optimizer state.
+Adam:
+
+Description: An Adam optimizer subclass inheriting from the Optimizer class, specifically configured for Adam optimization.
+Attributes:
+Inherits lr and optimizer from the Optimizer class.
+Methods:
+__init__(lr): Initializes the Adam optimizer with the given learning rate.
+Inherits update and set_params methods from the Optimizer class.
