@@ -3,17 +3,15 @@ Currently supports Dense Layers, if you want to implement any new nonexisting la
 This is soley a learning project that I made out of ethusiaism, so don't expect much. 
 It works fine according to my experimentations, so good luck trying it out.
 
-LAYERS :
 Layer:
-
 Description: Base class for creating neural network layers with trainable parameters.
 Methods:
 __init__(input_layer, Trainable): Initializes the layer with a previous layer and sets whether it is trainable.
 set_trainables(): Adds trainable parameters to the model parameters if the layer is trainable.
 display(): Displays the type of layer.
 __call__(x, params): Raises a NotImplementedError to be implemented in subclasses.
-InputLayer:
 
+#InputLayer:
 Description: Subclass of Layer representing an input layer that returns its input unchanged.
 Methods:
 __init__(input_layer): Initializes the input layer.
