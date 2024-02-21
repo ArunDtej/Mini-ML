@@ -147,7 +147,7 @@ class CategoricalCrossentropy(Loss):
         y_pred = np.clip(y_pred, self.epsilon, 1 - self.epsilon)
         return -np.mean(np.sum(y_true * np.log(y_pred), axis=-1))
 
-class Sparse_Categorical_Crossentropy(Loss):
+class SparseCategoricalCrossentropy(Loss):
     """
             Initializes Sparse_Categorical_Crossentropy loss object for classification problem.
             Call the loss function to get the loss for the given labels and predictions. 

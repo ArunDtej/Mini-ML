@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 import HomeMadeML.Loss as Loss
 import jax.numpy as jnp
 
