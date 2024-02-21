@@ -8,7 +8,7 @@ class Layer:
       Layer Class containing various callable layers with trainable parameters.
     """
 
-    def __init__(self, input_layer, Trainable: bool ) -> None:
+    def __init__(self, input_layer, Trainable: bool) -> None:
         """
         Initialize Layers class
 
@@ -27,7 +27,6 @@ class Layer:
             self.params = {}
         self.layer_name = 'Layer {}'.format(self.layercount)
 
-
     def set_trainables(self) -> None:
         """
         Adds trainable parameters from layer to model parameters, if Trainable is set to 'True'
@@ -38,19 +37,28 @@ class Layer:
     def display(self) -> None:
         print('Layer Class')
 
-    def __call__(self, x, params) ->None:
+    def __call__(self, x, params) -> None:
         raise NotImplementedError(self.error_message)
 
+
 class InputLayer(Layer):
-    def __init__(self, input_layer:None = None):
+    """
+          Initialize Input layer, its must for every model to have its first layer as InputLayer.
+
+          Args:
+          - input_layer (Layer): Previous layerif it takes its inputs from any layer, if not then left with None.
+          """
+
+    def __init__(self, input_layer: None = None):
         self.layercount = 0
-        super().__init__(input_layer, Trainable = False)
+        super().__init__(input_layer, Trainable=False)
 
     def __call__(self, x, params):
         return x
 
     def display(self):
         print('Input Layer',)
+
 
 class Relu(Layer):
     def __init__(self, input_layer, Trainable: bool = False) -> None:
@@ -62,7 +70,7 @@ class Relu(Layer):
           - Trainable (bool): set False to prevent training of Layers parameters.
           """
         self.activation = 'ReLU'
-        super().__init__(input_layer, Trainable=False )
+        super().__init__(input_layer, Trainable=False)
         self.sub_params = {}
         self.set_trainables()
 
@@ -84,7 +92,7 @@ class Relu(Layer):
 
 
 class Sigmoid(Layer):
-    def __init__(self, input_layer = None, Trainable: bool = False) ->  None:
+    def __init__(self, input_layer=None, Trainable: bool = False) -> None:
         """
           Initialize Sigmoid activation.
 
@@ -97,7 +105,7 @@ class Sigmoid(Layer):
         self.sub_params = {}
         self.set_trainables()
 
-    def __call__(self, x, params:dict):
+    def __call__(self, x, params: dict):
         """
               Applies Sigmoid activation to the inputs.
 
@@ -115,7 +123,7 @@ class Sigmoid(Layer):
 
 
 class Tanh(Layer):
-    def __init__(self, input_layer, Trainable:bool = False) -> None:
+    def __init__(self, input_layer, Trainable: bool = False) -> None:
         """
           Initialize Leaky relu activation.
 
@@ -127,7 +135,6 @@ class Tanh(Layer):
         super().__init__(input_layer, Trainable=False)
         self.sub_params = {}
         self.set_trainables()
-
 
     def __call__(self, x, params: dict):
         """
@@ -147,7 +154,7 @@ class Tanh(Layer):
 
 
 class Softmax(Layer):
-    def __init__(self, input_layer, Trainable: bool = False) ->None:
+    def __init__(self, input_layer, Trainable: bool = False) -> None:
         """
           Initialize Leaky relu activation.
 
@@ -157,7 +164,7 @@ class Softmax(Layer):
           """
         self.activation = 'Softmax'
         self.input_layer = input_layer
-        super().__init__(input_layer, Trainable=Trainable )
+        super().__init__(input_layer, Trainable=Trainable)
         self.sub_params = {}
         self.set_trainables()
 
@@ -177,8 +184,9 @@ class Softmax(Layer):
     def display(self):
         print('Activation : ', self.activation)
 
+
 class LeakyRelu(Layer):
-    def __init__(self, input_layer = None, alpha: float = 0.01, Trainable: bool = True) -> None:
+    def __init__(self, input_layer=None, alpha: float = 0.01, Trainable: bool = True) -> None:
         """
           Initialize Leaky relu activation.
 
@@ -208,7 +216,7 @@ class LeakyRelu(Layer):
         alpha = self.sub_params[self.trainable_parameters[0]]
 
         if self.Trainable and (set(self.trainable_parameters).issubset(params.keys())):
-            alpha = params[self.trainable_parameters[0]]            
+            alpha = params[self.trainable_parameters[0]]
         self.outputs = jnp.maximum(alpha * x, x)
         return self.outputs
 
@@ -217,63 +225,82 @@ class LeakyRelu(Layer):
 
 
 class Dense(Layer):
-  def __init__( self, input_layer, input_shape: int, output_shape: int, Trainable: bool = True) -> None:
-    """
-    Initialize a Dense layer with weights and bias for the given input and output shape
+    def __init__(self, input_layer, input_shape: int, output_shape: int, Trainable: bool = True) -> None:
+        """
+        Initialize a Dense layer with weights and bias for the given input and output shape
 
-    Args:
-      input_shape (list): shape of the input.
-      output_shape (list): shape of the outputs.
-    """
-    self.input_shape = input_shape
-    self.output_shape = output_shape
-    super().__init__(input_layer, Trainable=Trainable)
-    self.trainable_parameters = ['weights {}'.format(self.layer_name), 'bias {}'.format(self.layer_name)]
-    self.sub_params = {
-        self.trainable_parameters[0]: jax.random.normal(jax.random.PRNGKey(1), (input_shape, output_shape)) ,
-        self.trainable_parameters[1]: jax.random.normal(jax.random.PRNGKey(1), (1, output_shape)) ,
-    }
-    self.set_trainables()    
+        Args:
+          input_shape (list): shape of the input.
+          output_shape (list): shape of the outputs.
+        """
+        self.input_shape = input_shape
+        self.output_shape = output_shape
+        super().__init__(input_layer, Trainable=Trainable)
+        self.trainable_parameters = ['weights {}'.format(
+            self.layer_name), 'bias {}'.format(self.layer_name)]
+        self.sub_params = {
+            self.trainable_parameters[0]: jax.random.normal(jax.random.PRNGKey(1), (input_shape, output_shape)),
+            self.trainable_parameters[1]: jax.random.normal(jax.random.PRNGKey(1), (1, output_shape)),
+        }
+        self.set_trainables()
 
-  def __call__(self, x, params: dict = {}):
-    """Dense Layer forward."""
-        
-    weights = self.sub_params[self.trainable_parameters[0]]
-    bias = self.sub_params[self.trainable_parameters[1]]
+    def __call__(self, x, params: dict = {}):
+        """
+              Applies Dense Layer forward propaagation.
 
-    if self.Trainable and (set(self.trainable_parameters).issubset(params.keys())):
-      weights = params[self.trainable_parameters[0]]
-      bias = params[self.trainable_parameters[1]]
-    self.outputs = jnp.dot(x,weights) + bias
-    return self.outputs
+              Args:
+              - x (Array): Inputs.
+              - params (dict) : Trainable parameters dict. To be left alone as its maintained by teh model itself.
 
+              Returns:
+              - ndarray.
+          """
 
-  def display(self):
-    print('Dense Layer')
-    print('learnable weights :',(self.weights).shape)
-    print('learnable bias :',(self.bias).shape)
+        weights = self.sub_params[self.trainable_parameters[0]]
+        bias = self.sub_params[self.trainable_parameters[1]]
+
+        if self.Trainable and (set(self.trainable_parameters).issubset(params.keys())):
+            weights = params[self.trainable_parameters[0]]
+            bias = params[self.trainable_parameters[1]]
+        self.outputs = jnp.dot(x, weights) + bias
+        return self.outputs
+
+    def display(self):
+        print('Dense Layer')
+        print('learnable weights :', (self.weights).shape)
+        print('learnable bias :', (self.bias).shape)
 
 
 class Dropout(Layer):
-  def __init__(self, fraction, input_layer, Trainable = False):
-    """
-    Initialize Dropout layer with the given fraction.
+    def __init__(self, fraction, input_layer, Trainable=False):
+        """
+        Initialize Dropout layer with the given fraction.
 
-    Args:
-    - fraction (list): fraction of nodes to be dropped out in a given layer.
-    """
-    self.input_layer = input_layer
-    super().__init__(input_layer, Trainable=Trainable)
-    self.sub_params = {}
-    self.set_trainables()    
-    self.fraction = fraction
+        Args:
+        - fraction (list): fraction of nodes to be dropped out in a given layer.
+        """
+        self.input_layer = input_layer
+        super().__init__(input_layer, Trainable=Trainable)
+        self.sub_params = {}
+        self.set_trainables()
+        self.fraction = fraction
 
-  def __call__(self, x, params: dict):
-    num_nodes = x.shape[-1]
-    num_samples = int(num_nodes * self.fraction)
-    indices = np.random.choice(num_nodes, size=num_samples, replace=False)
-    x[..., indices] = 0
-    return x
+    def __call__(self, x, params: dict):
+        """
+        Applies to the given input.
 
-  def display(self):
-    print('Dropout', self.fraction)
+        Args:
+              - x (Array): Inputs.
+              - params (dict) : Trainable parameters dict. To be left alone as its maintained by teh model itself.
+
+              Returns:
+              - ndarray.
+        """
+        num_nodes = x.shape[-1]
+        num_samples = int(num_nodes * self.fraction)
+        indices = np.random.choice(num_nodes, size=num_samples, replace=False)
+        x[..., indices] = 0
+        return x
+
+    def display(self):
+        print('Dropout', self.fraction)

@@ -148,6 +148,22 @@ class CategoricalCrossentropy(Loss):
         return -np.mean(np.sum(y_true * np.log(y_pred), axis=-1))
 
 class Sparse_Categorical_Crossentropy(Loss):
+    """
+            Initializes Sparse_Categorical_Crossentropy loss object for classification problem.
+            Call the loss function to get the loss for the given labels and predictions. 
+            Args:
+                epsilon (float): small numerical value for numerical stability.
+    """
     def __call__(self, y_true: int, y_pred: float,):
+        """
+            Calculates Sparse_Categorical_Crossentropy loss for the given labels and predictions.
+
+            Args:
+                y_true (float): True labels for the given data in onehot encoded format.
+                y_pred (float): predicted values for the given data.
+
+            Returns:
+                float: Numerical loss value.
+        """
         loss_value = optax.softmax_cross_entropy_with_integer_labels(logits = y_pred, labels=y_true.reshape(-1))
         return loss_value.mean()
