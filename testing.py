@@ -1,8 +1,8 @@
-from Loss import MSE, MAE
-from LossHandler import LossHandler
-import Layer
+from HomeMadeML.Loss import MSE, MAE
+from HomeMadeML.LossHandler import LossHandler
+import HomeMadeML.Layer as Layer
 import numpy as np
-import Optimizers
+import HomeMadeML.Optimizers as Optimizers
 
 # l1 = Layer.Dense(None, 3,3)
 l1 = Layer.LeakyRelu(input_layer=None)
